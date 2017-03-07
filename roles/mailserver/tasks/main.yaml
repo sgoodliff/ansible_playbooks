@@ -1,0 +1,19 @@
+---
+ - name: make sure packages are installed
+   yum: name={{ item }} state=installed
+   with_items: 
+     - dovecot
+     - postfix
+   become: true
+
+ - name: make sure components are running and enabled
+   service: name={{ item }} state=started enabled=yes
+   with_items:
+    - dovecot
+    - postfix
+   become: true
+
+ - name: copy dovecot ssl conf
+   copy: src=dovecot/10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
+   become: true
+
