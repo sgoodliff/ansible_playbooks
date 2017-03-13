@@ -1,0 +1,5 @@
+---
+ - debug: 
+    msg: "{{ ansible_hostname }} "
+ - debug: 
+    msg: "{{ webservers.name[ansible_hostname] }}"

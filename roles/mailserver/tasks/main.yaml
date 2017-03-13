@@ -4,6 +4,10 @@
    with_items: 
      - dovecot
      - postfix
+     - httpd
+     - php
+     - php-pdo
+     - sqlite
    become: true
 
  - name: make sure components are running and enabled
@@ -17,3 +21,31 @@
    copy: src=dovecot/10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
    become: true
 
+ - file:
+    path: /var/www/webmail
+    state: directory
+
+ - copy: 
+    dest: /etc/httpd/conf.d/webmail.conf
+    src: httpd/webmail.conf
+    owner: root
+    group: root
+
+ - name: testing roundcube push
+   unarchive: src=webmail/roundcubemail-1.2.3-complete.tar.gz dest=/var/www/webmail
+
+ - file: 
+    path: "/var/www/webmail/{{ item }}" 
+    owner: apache 
+    group: apache
+   with_items:
+    - temp
+    - logs
+
+ - name: copy roundcube config out
+   copy: 
+    src: webmail/config.inc.php 
+    dest: /var/www/webmail/config/
+
+ - name: roundcube tidy cron
+   cron: minute=0 hour=0 weekday=0 job="cleandb.sh" user=sgoodliff
