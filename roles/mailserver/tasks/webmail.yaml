@@ -1,0 +1,18 @@
+---
+
+ # Set (httpd_can_network_connect) flag on and keep it persistent across reboots
+ - seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
+ - file:
+    path: /var/www/webmail
+    state: directory
+
+ - copy:
+    dest: /etc/httpd/conf.d/webmail.conf
+    src: httpd/webmail.conf
+    owner: root
+    group: root
+
