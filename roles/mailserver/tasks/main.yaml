@@ -9,6 +9,7 @@
      - httpd
      - php
      - php-pdo
+     - php-xml
      - php-mbstring
      - sqlite
    become: true

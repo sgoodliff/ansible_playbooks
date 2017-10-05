@@ -18,8 +18,13 @@
    become: true
 
  - name: testing roundcube push
-   unarchive: src=webmail/roundcubemail-1.3.1-complete.tar.gz dest=/var/www/webmail
+   unarchive: src=webmail/roundcubemail-1.3.1-complete.tar.gz dest=/tmp/ owner=sgoodliff
    become: true
+
+ - name: test synchronize
+   synchronize: 
+    src: /tmp/roundcubemail-1.3.1/
+    dest: /var/www/webmail/
 
  - file:
     path: "/var/www/webmail/{{ item }}"

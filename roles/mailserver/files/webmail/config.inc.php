@@ -25,7 +25,7 @@ $config = array();
 // For examples see http://pear.php.net/manual/en/package.database.mdb2.intro-dsn.php
 // NOTE: for SQLite use absolute path (Linux): 'sqlite:////full/path/to/sqlite.db?mode=0646'
 //       or (Windows): 'sqlite:///C:/full/path/to/sqlite.db'
-$config['db_dsnw'] = 'sqlite:///tmp/webmail.sqlite.db?mode=646';
+$config['db_dsnw'] = 'sqlite:////tmp/webmail.sqlite.db?mode=646';
 
 // The mail host chosen to perform the log-in.
 // Leave blank to show a textbox at login, give a list of hosts
